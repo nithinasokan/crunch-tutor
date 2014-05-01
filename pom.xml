@@ -5,32 +5,76 @@
   <version>1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Crunch Tutor</name>
+  <url>http://crunch-tutor.blogspot.com</url>
+  <description>Examples for Apache crunch</description>
   <modules>
-  	<module>crunch-examples</module>
+    <module>crunch-examples</module>
   </modules>
+  
+  <properties>
+    <jdk.version>1.6</jdk.version>
+    
+    <!-- Dependency versions -->
+    <crunch.version>0.9.0-hadoop2</crunch.version>
+    <hadoop.version>2.2.0</hadoop.version>
+    <!-- Tests -->
+    <junit.version>4.11</junit.version>
+  </properties>
   
   <dependencyManagement>
   <dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.11</version>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
- </dependencyManagement>
+    <dependency>
+        <groupId>org.apache.crunch</groupId>
+        <artifactId>crunch-core</artifactId>
+        <version>${crunch.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.hadoop</groupId>
+        <artifactId>hadoop-client</artifactId>
+        <version>${hadoop.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>${junit.version}</version>
+        <scope>test</scope>
+    </dependency>
+  </dependencies>
+  </dependencyManagement>
  
-	<build>
-	  <plugins>
-		<plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-compiler-plugin</artifactId>
-			<version>2.3.2</version>
-			<configuration>
-				<source>1.6</source>
-				<target>1.6</target>
-			</configuration>
-		</plugin>
-	  </plugins>
-	</build>
+  <build>
+  <plugins>
+    <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.3.2</version>
+        <configuration>
+            <source>${jdk.version}</source>
+            <target>${jdk.version}</target>
+        </configuration>
+    </plugin>
+    <plugin>
+        <groupId>org.apache.maven.plugins </groupId>
+        <artifactId>maven-eclipse-plugin</artifactId>
+        <version>2.9</version>
+        <configuration>
+            <downloadSources>true</downloadSources>
+            <downloadJavadocs>true</downloadJavadocs>
+        </configuration>
+    </plugin>
+  </plugins>
+  <pluginManagement>
+    <plugins>
+        <plugin> 
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-shade-plugin</artifactId>
+            <version>1.7.1</version>
+            <configuration>
+                <createDependencyReducedPom>false</createDependencyReducedPom>
+            </configuration>
+        </plugin>
+    </plugins>
+  </pluginManagement>
+  </build>
+  
 </project>

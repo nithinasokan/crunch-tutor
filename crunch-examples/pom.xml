@@ -7,12 +7,38 @@
   </parent>
   <artifactId>crunch-examples</artifactId>
   <name>Crunch Examples</name>
-  
+
   <dependencies>
-  <dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
-		</dependency>
-		</dependencies>
+    <dependency>
+        <groupId>org.apache.crunch</groupId>
+        <artifactId>crunch-core</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.hadoop</groupId>
+        <artifactId>hadoop-client</artifactId>
+        <scope>provided</scope>
+    </dependency>
+    <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+        <plugin> 
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-shade-plugin</artifactId>
+             <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+          </execution>
+        </executions>
+        </plugin>
+    </plugins>
+  </build>
 </project>
