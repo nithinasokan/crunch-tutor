@@ -4,11 +4,12 @@
   <artifactId>crunch-tutor</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
-  <name>Crunch Tutor</name>
+  <name>Crunch Tutorials</name>
   <url>http://crunch-tutor.blogspot.com</url>
   <description>Examples for Apache crunch</description>
   <modules>
     <module>crunch-examples</module>
+    <module>crunch-api</module>
   </modules>
   
   <properties>
@@ -17,12 +18,23 @@
     <!-- Dependency versions -->
     <crunch.version>0.9.0-hadoop2</crunch.version>
     <hadoop.version>2.2.0</hadoop.version>
+    <avro.version>1.7.4</avro.version>
     <!-- Tests -->
     <junit.version>4.11</junit.version>
   </properties>
   
   <dependencyManagement>
   <dependencies>
+    <dependency>
+        <groupId>com.crunch.tutor</groupId>
+        <artifactId>crunch-examples</artifactId>
+        <version>${project.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>com.crunch.tutor</groupId>
+        <artifactId>crunch-api</artifactId>
+        <version>${project.version}</version>
+    </dependency>
     <dependency>
         <groupId>org.apache.crunch</groupId>
         <artifactId>crunch-core</artifactId>
@@ -39,10 +51,16 @@
         <version>${junit.version}</version>
         <scope>test</scope>
     </dependency>
+  <dependency>
+    <groupId>org.apache.avro</groupId>
+    <artifactId>avro</artifactId>
+    <version>${avro.version}</version>
+  </dependency>
   </dependencies>
   </dependencyManagement>
  
   <build>
+  <pluginManagement>
   <plugins>
     <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -51,6 +69,8 @@
         <configuration>
             <source>${jdk.version}</source>
             <target>${jdk.version}</target>
+            <showDeprecation>true</showDeprecation>
+            <showWarnings>true</showWarnings>
         </configuration>
     </plugin>
     <plugin>
@@ -62,17 +82,14 @@
             <downloadJavadocs>true</downloadJavadocs>
         </configuration>
     </plugin>
-  </plugins>
-  <pluginManagement>
-    <plugins>
-        <plugin> 
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-shade-plugin</artifactId>
-            <version>1.7.1</version>
-            <configuration>
-                <createDependencyReducedPom>false</createDependencyReducedPom>
-            </configuration>
-        </plugin>
+    <plugin> 
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>1.7.1</version>
+        <configuration>
+            <createDependencyReducedPom>false</createDependencyReducedPom>
+        </configuration>
+    </plugin>
     </plugins>
   </pluginManagement>
   </build>

@@ -1,0 +1,120 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.crunch.tutor</groupId>
+    <artifactId>crunch-tutor</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+  <artifactId>crunch-api</artifactId>
+  <name>Crunch API</name>
+  <description>Hold's data model for examples used in crunch-tutor</description>
+  <url>http://crunch-tutor.blogspot.com</url>
+
+  <properties>
+    <jdk.version>1.6</jdk.version>
+  </properties>
+      
+  <dependencies>
+  <dependency>
+    <groupId>org.apache.avro</groupId>
+    <artifactId>avro</artifactId>
+  </dependency>
+  </dependencies>
+  
+  <build>
+  <plugins>
+    <plugin>
+        <groupId>org.apache.avro</groupId>
+        <artifactId>avro-maven-plugin</artifactId>
+        <version>1.7.4</version>
+        <executions>
+            <execution>
+                <phase>generate-sources</phase>
+                <goals>
+                    <goal>schema</goal>
+                    <goal>protocol</goal>
+                    <goal>idl-protocol</goal>
+                </goals>
+                <configuration>
+                    <sourceDirectory>${project.basedir}/src/main/avro/</sourceDirectory>
+                    <outputDirectory>${project.basedir}/target/generated-avros/</outputDirectory>
+                    <stringType>String</stringType>
+                </configuration>
+            </execution>
+        </executions>
+    </plugin>
+    <plugin>
+        <groupId>org.apache.maven.plugins </groupId>
+        <artifactId>maven-eclipse-plugin</artifactId>
+        <configuration>
+            <downloadSources>true</downloadSources>
+            <downloadJavadocs>true</downloadJavadocs>
+        </configuration>
+    </plugin>
+     <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>1.7</version>
+        <executions>
+            <execution>
+                <id>add-source</id>
+                <phase>generate-sources</phase>
+                <goals>
+                    <goal>add-source</goal>
+                </goals>
+                <configuration>
+                    <sources>
+                        <source>${project.basedir}/target/generated-avros</source>
+                    </sources>
+                </configuration>
+            </execution>
+            <execution>
+                <id>add-test-source</id>
+                <phase>generate-test-sources</phase>
+                <goals>
+                    <goal>add-test-source</goal>
+                </goals>
+                <configuration>
+                    <sources>
+                        <source>${project.basedir}/target/generated-test-sources</source>
+                    </sources>
+                </configuration>
+            </execution>
+        </executions>
+    </plugin>
+  </plugins>
+  
+  <pluginManagement>
+   <plugins>
+    <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+    <plugin>
+        <groupId>org.eclipse.m2e</groupId>
+        <artifactId>lifecycle-mapping</artifactId>
+        <version>1.0.0</version>
+        <configuration>
+            <lifecycleMappingMetadata>
+                <pluginExecutions>
+                    <pluginExecution>
+                        <pluginExecutionFilter>
+                            <groupId>org.apache.avro</groupId>
+                            <artifactId>avro-maven-plugin</artifactId>
+                            <versionRange>[1.7.4,)</versionRange>
+                            <goals>
+                                <goal>schema</goal>
+                                <goal>protocol</goal>
+                                <goal>idl-protocol</goal>
+                            </goals>
+                        </pluginExecutionFilter>
+                        <action>
+                            <ignore></ignore>
+                        </action>
+                    </pluginExecution>
+                </pluginExecutions>
+            </lifecycleMappingMetadata>
+        </configuration>
+    </plugin>
+  </plugins>
+  </pluginManagement>
+  </build>
+  
+</project>
