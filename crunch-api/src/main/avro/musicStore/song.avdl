@@ -1,0 +1,9 @@
+@namespace("com.crunch.tutor.api.music.store")
+protocol SongProtocol {
+
+    record Song {
+        string songId;
+        string songTitle;
+        string artistName;
+    }
+}
