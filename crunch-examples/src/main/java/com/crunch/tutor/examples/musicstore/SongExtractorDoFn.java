@@ -11,13 +11,13 @@ import com.crunch.tutor.api.music.store.Song;
 
 /**
  * A {@link DoFn} implementation that takes in a String as input and return a {@link Song} instance.
- * Each line of the input string should be formatted of the form
- * {@code "songId","song title","artist"} (or) {@code "songId","song title","artist ft. artist"} If
+ * Each line of input should be formatted of the form
+ * {@code "songId","song title","artist"} (or) {@code "songId","song title","artist ft. artist"}. If
  * the artist includes a featuring artist, then two instances of {@link Song} will be produced.
  */
 public class SongExtractorDoFn extends DoFn<String, Song> {
 
-    // Generate this since MapFn implements serializable
+    // Generate this since DoFn implements serializable
     private static final long serialVersionUID = -1034942975963730842L;
 
     // Let's create a default parser that splits based on comma(,)
